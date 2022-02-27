@@ -22,8 +22,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(IngredientController.class)
 public class IngredientControllerTest {
@@ -60,8 +59,25 @@ public class IngredientControllerTest {
 
 	@Test
 	void deleteIngredientsById() throws Exception {
+		Long recipeId = 2L;
+		Long ingredId = 2L;
+
+		this.mockMvc.perform(get("/recipe/{recipeId}/ingredient/{ingredId}/delete", recipeId, ingredId))
+				.andExpect(status().is3xxRedirection());
+		verify(ingredientService).deleteIngredientById(recipeId,ingredId);
+	}
+	@Test
+	void getIngredientById() throws Exception {
 		Long id = 2L;
-		this.mockMvc.perform(delete("/recipe/ingredient/{ingredientId}", id))
-				.andExpect(status().isOk());
+		Long ingredId = 1L;
+		IngredientDto ingredientDto = IngredientDto.builder().build();
+		when(ingredientService.getIngredientById(id, ingredId)).thenReturn(ingredientDto);
+		this.mockMvc.perform(get("/recipe/{recipeId}/ingredient/{ingredientId}/update", id, ingredId))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("ingredient"))
+				.andExpect(view().name("recipe/ingredients/form"));
+
+		verify(ingredientService).getIngredientById(id, ingredId);
+
 	}
 }

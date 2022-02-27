@@ -19,6 +19,7 @@ public class IngredientController {
 		this.recipeService = recipeService;
 	}
 
+	// change this
 	@GetMapping("/{recipeId}/ingredients")
 	public String getRecipeById(Model model, @PathVariable Long recipeId){
 		model.addAttribute("recipe", recipeService.getRecipeById(recipeId));
@@ -31,7 +32,7 @@ public class IngredientController {
 		return "recipe/ingredients/form";
 	}
 
-	@GetMapping("/{recipeId}/ingredient/{ingredientId}")
+	@GetMapping("/{recipeId}/ingredient/{ingredientId}/delete")
 	public String deleteIngredientById(@PathVariable String recipeId,@PathVariable String ingredientId){
 		ingredientService.deleteIngredientById(Long.valueOf(recipeId),Long.valueOf(ingredientId));
 		return "redirect:recipe/ingredients/show";

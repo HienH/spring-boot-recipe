@@ -49,7 +49,7 @@ public class RecipeController {
 
 	@GetMapping("recipe/{id}/update")
 	public String getUpdateRecipeForm(@PathVariable String id, Model model){
-		model.addAttribute("recipe", recipeService.getRecipeById(Long.valueOf(id)));
+		model.addAttribute("recipe", recipeService.getRecipeDtoById(Long.valueOf(id)));
 		return "recipe/form";
 	}
 

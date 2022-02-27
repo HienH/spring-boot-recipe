@@ -69,7 +69,7 @@ public class RecipeControllerTest {
 
 		mockMvc.perform(get("/recipe/{id}/show", id))
 				.andExpect(status().isOk())
-				.andExpect(view().name("recipe/show"))
+
 				.andExpect(model().attributeExists("recipe"));
 		verify(recipeService).getRecipeById(1L);
 	}
@@ -101,7 +101,8 @@ public class RecipeControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("recipe"))
 				.andExpect(view().name("recipe/form"));
-		verify(recipeService.getRecipeDtoById(id));
+		verify(recipeService, times(1)).getRecipeDtoById(anyLong());
+
 	}
 
 	@Test
