@@ -48,16 +48,14 @@ public class IngredientControllerTest {
 
 	@Test
 	void getRecipeById() throws Exception {
-//		Set<IngredientDto> ingredients = new HashSet<>();
-//		ingredients.add(IngredientDto.builder().build());
-//		Long id = 1L;
+		Long id = 1L;
 		Recipe recipe = Recipe.builder().build();
 		when(recipeService.getRecipeById(anyLong())).thenReturn(recipe);
 		this.mockMvc.perform(get("/recipe/{recipeId}/ingredients", id))
 				.andExpect(status().isOk())
-				.andExpect(model().attributeExists("ingredients"));
+				.andExpect(model().attributeExists("recipe"));
 
-		verify(ingredientService).getIngredientsByRecipeId(id);
+		verify(recipeService).getRecipeById(id);
 	}
 
 	@Test

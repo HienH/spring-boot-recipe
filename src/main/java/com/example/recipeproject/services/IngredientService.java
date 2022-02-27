@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 public interface IngredientService {
-	Set<IngredientDto> getIngredientsByRecipeId(Long recipeId);
+	IngredientDto getIngredientById(Long recipeId, Long ingredientId);
 
 	void deleteIngredientById(Long recipeId,Long ingredientId);
 }

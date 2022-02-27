@@ -30,12 +30,12 @@
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
-                                <th> Id</th>
+                                <th> Amount</th>
                                 <th> Description</th>
                             </tr>
                             </thead>
                             <tr th:each="ingredient : ${recipe.getIngredients()}">
-                                <td><span th:text="${ingredient.id}"> ingredient Id </span></td>
+                                <td><span th:text="${ingredient.amount}"> Ingredient Amount </span></td>
                                 <td><span th:text="${ingredient.description}"> ingredient title </span></td>
                                 <td><a href="#"
                                        th:href="@{'/recipe/'+${recipe.id}+'/ingredient/' + ${ingredient.id} + '/update'}">

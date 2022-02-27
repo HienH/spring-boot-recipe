@@ -24,15 +24,16 @@ public class IngredientImpService implements IngredientService {
 	}
 
 	IngredientMapper ingredientMapper;
-
+// here
 	@Override
-	public Set<IngredientDto> getIngredientsByRecipeId(Long recipeId) {
+	public IngredientDto getIngredientById(Long recipeId, Long ingredientId) {
 		log.debug("calling get ingredients by recipeId service");
-		Set<IngredientDto> ingredientsDTOByRecipeId = new HashSet<>();
+		IngredientDto ingredientsDTOByRecipeId = new IngredientDto();
 
 		Optional<Recipe> recipe = recipeRepository.findById(recipeId);
 		if (recipe.isPresent()) {
-			recipe.get().getIngredients().stream().forEach(ing -> ingredientsDTOByRecipeId.add(ingredientMapper.ingredientDomainToDto(ing)));
+			Ingredient ingredient = recipe.get().getIngredients().stream().filter(ing -> ing.getId().equals(ingredientId)).findAny().orElse(null);
+			ingredientsDTOByRecipeId = ingredientMapper.ingredientDomainToDto(ingredient);
 		} else {
 			log.debug("recipe not found");
 		}

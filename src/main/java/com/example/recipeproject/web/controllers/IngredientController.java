@@ -25,6 +25,12 @@ public class IngredientController {
 		return "recipe/ingredients/show";
 	}
 
+	@GetMapping("/{recipeId}/ingredient/{ingredientId}/update")
+	public String getIngredientById(Model model, @PathVariable Long recipeId, @PathVariable Long ingredientId){
+		model.addAttribute("ingredient", ingredientService.getIngredientById(recipeId, ingredientId));
+		return "recipe/ingredients/form";
+	}
+
 	@GetMapping("/{recipeId}/ingredient/{ingredientId}")
 	public String deleteIngredientById(@PathVariable String recipeId,@PathVariable String ingredientId){
 		ingredientService.deleteIngredientById(Long.valueOf(recipeId),Long.valueOf(ingredientId));
